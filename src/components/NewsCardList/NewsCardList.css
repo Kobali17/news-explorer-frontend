@@ -1,0 +1,23 @@
+.news-card-list {
+  max-width: 1440px;
+  padding: 64px 0 62px 102px;
+  display: grid;
+  grid-template-columns:repeat(auto-fill, minmax(400px, 1fr));
+  grid-gap: 16px 16px;
+}
+.news-card__background{
+  background-color: #F5F6F7;
+}
+@media screen and (max-width: 620px) {
+  .news-card-list {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .news-card-list {
+    padding: 64px 0 0 120px;
+  }
+}

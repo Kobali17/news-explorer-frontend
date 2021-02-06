@@ -1,0 +1,39 @@
+.about{
+
+  display:flex;
+  max-width: 1440px;
+
+}
+.about__avatar{
+  margin-top: 80px;
+  margin-left: 104px;
+  width: 464px;
+  height: 464px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-size: contain;
+}
+.about__text-content{
+  max-width: 600px;
+  margin-top: 131px;
+  margin-left: 56px ;
+  display: flex;
+  flex-direction: column;
+
+}
+.about__header{
+  font-family: Inter, 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 40px;
+  line-height: 46px;
+  color: #1A1B22;
+}
+.about__text{
+  font-family: Inter, 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 24px;
+  color: #1A1B22;
+}
