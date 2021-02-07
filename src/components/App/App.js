@@ -7,6 +7,8 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import SavedNews from '../SavedNews/SavedNews';
 import Footer from '../Footer/Footer';
+import SearchResults from '../SearchResults/SearchResults';
+import About from '../About/About';
 
 function App() {
   const [isLoginPopupOpen, setLoginPopupOpen] = React.useState(false);
@@ -47,6 +49,9 @@ function App() {
               text={''}
               buttonText={'Авторизоваться'}
               onClick={openRegisterPopup}/>
+        <SearchResults/>
+        <About/>
+        <Footer/>
         <Register onSubmit={handleRegisterClose}
                   link={'/sign-in'}
                   linkText={'Войти'}
@@ -61,6 +66,9 @@ function App() {
             text={'Регистрация'}
             buttonText={'Авторизоваться'}
             onClick={openRegisterPopup}/>
+      <SearchResults/>
+      <About/>
+      <Footer/>
       <Login onSubmit={handleLoginClose}
              link={'/sign-in'}
              linkText={'Зарегестрироваться'}
@@ -74,6 +82,9 @@ function App() {
             text={'Главная'}
             buttonText={'Авторизоваться'}
             onClick={openLoginPopup}/>
+            <SearchResults/>
+            <About/>
+            <Footer/>
           <Login onSubmit={handleLoginClose}
                  link={'/sign-in'}
                  linkText={'Зарегестрироваться'}

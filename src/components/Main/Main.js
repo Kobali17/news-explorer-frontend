@@ -2,10 +2,8 @@ import React from 'react';
 // import NewsCard from '../NewsCard/NewsCard';
 // import CurrentUserContext from '../../contexts/CurrentUserContext';
 import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
 import './Main.css';
 import SearchForm from '../SearchForm/SearchForm';
-import About from '../About/About';
 
 function Main(props) {
   // const currentUser = React.useContext(CurrentUserContext);
@@ -24,8 +22,6 @@ function Main(props) {
           <p className="main__text">Находите самые свежие статьи на любую тему и сохраняйте в своём личном кабинете.</p>
           <SearchForm/>
         </main>
-      <About/>
-      <Footer/>
       </>
   );
 }
