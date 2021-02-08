@@ -58,7 +58,6 @@
   height: 40px;
   border: none;
   border-radius: 8px;
-  margin: 0 18px 0;
   background-color: #FFFFFF;
   background-image: url("../../images/bookmark.svg");
   background-position: center;
@@ -87,9 +86,41 @@
   background-color: #FFFFFF;
 }
 
-@media screen and (max-width: 620px) {
+@media screen and (max-width: 1000px) {
   .card {
-    margin: 20px 0 0;
-
+    width: 224px;
+    height: 420px;
+  }
+  .card__check-button{
+    top: 16px;
+    right: 16px;
+  }
+  .card__title{
+    margin: 16px 0 0 24px;
+    font-size: 22px;
+    line-height: 24px;
+  }
+  .card__img{
+    height: 150px;
+  }
+  .card__info{
+    height: 270px;
+  }
+  .card__source{
+    font-size: 16px;
+    line-height: 20px;
+  }
+  .card__data{
+    margin: 12px 0 0 16px;
+    font-size: 18px;
+    line-height: 24px;
+  }
+  .card__text{
+    margin: 10px 0 0 24px;
+    height: 88px;
+    font-size: 16px;
+    line-height: 22px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }

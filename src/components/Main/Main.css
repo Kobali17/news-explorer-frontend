@@ -30,3 +30,26 @@
   line-height: 24px;
   color: #FFFFFF;
 }
+
+@media screen and (max-width: 1000px) {
+  .main__header {
+    font-size: 36px;
+    line-height: 40px;
+  }
+  .main__text {
+    font-size: 18px;
+    line-height: 24px;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .main {
+  max-width: 540px;
+  }
+  .main__text {
+    max-width: 288px;
+  }
+  .main__header {
+    max-width: 285px;
+  }
+}

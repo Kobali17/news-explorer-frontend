@@ -12,7 +12,13 @@ function Header(props) {
                         secondlink={props.secondlink}
                         secondText={props.secondText}
                         buttonText={props.buttonText}
-                        onClick={props.onClick}/>
+                        onClick={props.onClick}
+                        menuClick={props.menuClick}
+                        onSubmit={props.onSubmit}
+                        onClose={props.onClose}
+                        isOpen={props.isOpen}
+                        onSecondClick={props.onSecondClick}
+            />
         </header>);
 }
 

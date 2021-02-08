@@ -1,14 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Navigation.css';
+import MenuPopup from '../MenuPopup/MenuPopup';
 
 function Navigation(props) {
   return (
+    <>
       <div className="navigation">
         <Link className="navigation__link" to={props.link} >{props.text}</Link>
         <Link className="navigation__link" to={props.secondlink} >{props.secondText}</Link>
         <button className="navigation__button" onClick={props.onClick} >{props.buttonText}</button>
+        <button className="navigation__menu-button" onClick={props.menuClick}/>
       </div>
+      </>
   );
 }
 

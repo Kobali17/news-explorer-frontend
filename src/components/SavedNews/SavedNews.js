@@ -13,7 +13,9 @@ function SavedNews(props) {
                        text={props.text}
                        secondlink={props.secondlink}
                        secondText={props.secondText}
-                       buttonText={props.buttonText}/>
+                       buttonText={props.buttonText}
+                       menuClick={props.menuClick}
+      />
       <p className="saved-news__title">Сохранённые статьи</p>
       <h1 className="saved-news__header">{'Луна'}, у вас {'6'} сохраненных статей</h1>
       <p className="saved-news__text">По ключевым словам: {'Природа'}, {'Тайга'} и {'2'}-м другим</p>

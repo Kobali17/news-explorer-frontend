@@ -9,14 +9,17 @@ import SavedNews from '../SavedNews/SavedNews';
 import Footer from '../Footer/Footer';
 import SearchResults from '../SearchResults/SearchResults';
 import About from '../About/About';
+import MenuPopup from '../MenuPopup/MenuPopup';
 
 function App() {
   const [isLoginPopupOpen, setLoginPopupOpen] = React.useState(false);
   const [isRegisterPopupOpen, setRegisterPopupOpen] = React.useState(false);
+  const [isMenuPopupOpen, setMenuPopupOpen] = React.useState(false);
 
   function closeAllPopups() {
     setLoginPopupOpen(false);
     setRegisterPopupOpen(false);
+    setMenuPopupOpen(false);
   }
 
   function handleLoginClose() {
@@ -25,13 +28,18 @@ function App() {
   function handleRegisterClose() {
     closeAllPopups();
   }
+  function handleMenuClose() {
+    closeAllPopups();
+  }
   function openRegisterPopup() {
     setRegisterPopupOpen(true);
   }
   function openLoginPopup() {
     setLoginPopupOpen(true);
   }
-
+  function openMenuPopup() {
+    setMenuPopupOpen(true);
+  }
   return (
 
    <>
@@ -40,18 +48,40 @@ function App() {
                   text={'Главная'}
                   secondlink={'/saved-news'}
                   secondText={'Сохранённые статьи'}
-                  buttonText={'Луна'}/>
+                  buttonText={'Луна'}
+                  menuClick={openMenuPopup}/>
+       <MenuPopup onSubmit={handleMenuClose}
+                  onClose={closeAllPopups}
+                  isOpen={isMenuPopupOpen}
+                  onSecondClick={openRegisterPopup}
+                  link={'/sign-in'}
+                  secondlink={'/'}
+                  secondText={''}
+                  text={'Главная'}
+                  buttonText={'Авторизоваться'}/>
        <Footer/>
      </Route>
     <Route path={'/sign-up'}>
       <>
         <Main link={'/sign-in'}
+              menuClick={openMenuPopup}
+              secondlink={''}
+              secondText={''}
               text={''}
               buttonText={'Авторизоваться'}
-              onClick={openRegisterPopup}/>
+              />
         <SearchResults/>
         <About/>
         <Footer/>
+        <MenuPopup onSubmit={handleMenuClose}
+                   onClose={closeAllPopups}
+                   isOpen={isMenuPopupOpen}
+                   onSecondClick={openRegisterPopup}
+                   link={'/sign-in'}
+                   secondlink={''}
+                   secondText={''}
+                   text={'Главная'}
+                   buttonText={'Авторизоваться'}/>
         <Register onSubmit={handleRegisterClose}
                   link={'/sign-in'}
                   linkText={'Войти'}
@@ -64,11 +94,24 @@ function App() {
     <>
       <Main link={'/sign-up'}
             text={'Регистрация'}
+            secondlink={''}
+            secondText={''}
             buttonText={'Авторизоваться'}
-            onClick={openRegisterPopup}/>
+            onClick={openRegisterPopup}
+            menuClick={openMenuPopup}
+            />
       <SearchResults/>
       <About/>
       <Footer/>
+      <MenuPopup onSubmit={handleMenuClose}
+                 onClose={closeAllPopups}
+                 isOpen={isMenuPopupOpen}
+                 onSecondClick={openRegisterPopup}
+                 link={'/sign-in'}
+                 secondlink={''}
+                 secondText={''}
+                 text={'Главная'}
+                 buttonText={'Авторизоваться'}/>
       <Login onSubmit={handleLoginClose}
              link={'/sign-in'}
              linkText={'Зарегестрироваться'}
@@ -81,10 +124,23 @@ function App() {
             link={'/'}
             text={'Главная'}
             buttonText={'Авторизоваться'}
-            onClick={openLoginPopup}/>
+            secondlink={''}
+            secondText={''}
+            onClick={openLoginPopup}
+            menuClick={openMenuPopup}
+          />
             <SearchResults/>
             <About/>
             <Footer/>
+          <MenuPopup onSubmit={handleMenuClose}
+                     onClose={closeAllPopups}
+                     isOpen={isMenuPopupOpen}
+                     onSecondClick={openRegisterPopup}
+                     link={'/sign-in'}
+                     secondlink={''}
+                     secondText={''}
+                     text={'Главная'}
+                     buttonText={'Авторизоваться'}/>
           <Login onSubmit={handleLoginClose}
                  link={'/sign-in'}
                  linkText={'Зарегестрироваться'}

@@ -35,3 +35,25 @@
 .search-results__button:focus{
   outline: none;
 }
+@media screen and (max-width: 1000px) {
+  .search-results__text {
+    margin-left: 40px;
+    font-size: 30px;
+    line-height: 34px;
+  }
+  .search-results__button {
+    margin: 22px 0 40px;
+    width: 240px;
+    height: 56px;
+  }
+}
+@media screen and (max-width: 540px) {
+  .search-results__text {
+    margin-left: 16px;
+  }
+  .search-results__button {
+    margin: 22px 0 40px;
+    width: 288px;
+    height: 56px;
+  }
+}
