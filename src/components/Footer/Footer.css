@@ -1,0 +1,113 @@
+.footer{
+  max-width: 1440px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-top: 25px;
+}
+.footer__text{
+  margin-left: 104px;
+  font-family: Inter, 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 22px;
+  color: #B6BCBF;
+}
+.footer__data{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.footer__link{
+  margin-right: 24px;
+  font-family: Inter, 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 24px;
+  text-align: center;
+  color: #1A1B22;
+  text-decoration: none;
+}
+.footer__link:hover{
+  opacity: .8;
+}
+
+.footer__icon_git{
+  margin-right: 24px;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: none;
+  width: 20px;
+  height: 20px;
+background-image: url("../../images/git.svg");
+}
+.footer__icon_git:hover{
+  opacity: .8;
+}
+
+.footer__icon_face{
+  margin-right: 106px;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: none;
+  width: 20px;
+  height: 20px;
+background-image: url("../../images/facebook.svg");
+}
+.footer__icon_face:hover{
+  opacity: .8;
+}
+
+@media screen and (max-width: 1000px) {
+  .footer__link {
+    margin-right: 12px;
+    font-size: 18px;
+    line-height: 24px;
+  }
+  .footer__text {
+    margin-left: 40px;
+    font-size: 16px;
+    line-height: 22px;
+  }
+  .footer__icon_git{
+    margin-right: 21px;
+  }
+  .footer__icon_face{
+    margin-right: 21px;
+  }
+
+}
+@media screen and (max-width: 540px) {
+  .footer{
+   flex-direction: column-reverse;
+    padding-top:10px;
+
+  }
+  .footer__text{
+    margin-left: 16px;
+    font-family: Inter, 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    color: #B6BCBF;
+  }
+  .footer__data{
+    justify-content: center;
+  }
+  .footer__link {
+    margin:0 8px 15px 10px;
+
+  }
+  .footer__icon_git{
+    margin-right: 10px;
+  }
+  .footer__icon_face{
+    margin-right: 10px;
+  }
+
+}
