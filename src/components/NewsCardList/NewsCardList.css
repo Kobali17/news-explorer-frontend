@@ -10,9 +10,11 @@
 }
 @media screen and (max-width: 1000px) {
   .news-card-list {
-    padding: 32px 0 0 40px;
-    grid-template-columns:repeat(auto-fill, minmax(226px, 1fr));
+    padding: 32px 0 20px 40px;
+    grid-template-columns:repeat(auto-fill, minmax(224px, 0.3fr));
+    grid-gap: 8px 8px;
   }
+
 }
 
 @media screen and (max-width: 540px) {

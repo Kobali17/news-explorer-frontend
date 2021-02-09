@@ -6,7 +6,7 @@
 }
 .search-results__text{
   margin-left: 104px;
-  font-family: Inter, 'Arial', sans-serif;
+  font-family: RobotoSlab, 'Arial', sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 40px;
@@ -18,7 +18,7 @@
   margin: 64px 0 80px;
   width: 288px;
   height: 64px;
-  font-family: Inter, 'Arial', sans-serif;
+  font-family: Roboto, 'Arial', sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 18px;

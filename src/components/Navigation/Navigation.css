@@ -3,11 +3,12 @@
   flex-direction: row;
   align-items: baseline;
   align-content: space-between;
+  margin-top: 20px;
 }
 
 .navigation__link {
   margin-right: 24px;
-  font-family: Inter, 'Arial', sans-serif;
+  font-family: Roboto, 'Arial', sans-serif;
   font-style: normal;
   text-decoration: none;
   font-weight: normal;
@@ -46,7 +47,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: Inter, 'Arial', sans-serif;
+  font-family: Roboto, 'Arial', sans-serif;
   font-style: normal;
   text-decoration: none;
   font-weight: normal;
