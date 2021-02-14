@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Navigation.css';
-import MenuPopup from '../MenuPopup/MenuPopup';
 
 function Navigation(props) {
   return (

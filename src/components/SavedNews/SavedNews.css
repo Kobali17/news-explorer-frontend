@@ -1,7 +1,7 @@
 .saved-news__title{
   margin-left: 104px;
   text-align: left;
-  font-family: Inter, 'Arial', sans-serif;
+  font-family: Roboto, 'Arial', sans-serif;
   color: rgba(26, 27, 34, 0.5);
   font-size: 18px;
   line-height: 24px;
@@ -10,7 +10,7 @@
 .saved-news__header{
   margin-left: 104px;
   text-align: left;
-  font-family: Inter, 'Arial', sans-serif;
+  font-family: RobotoSlab, 'Arial', sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 40px;
@@ -20,7 +20,7 @@
 .saved-news__text{
   margin-left: 104px;
   text-align: left;
-  font-family: Inter, 'Arial', sans-serif;
+  font-family: Roboto, 'Arial', sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 18px;

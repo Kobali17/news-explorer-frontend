@@ -9,7 +9,7 @@
 .card__title{
   margin: 12px 0 0 24px;
   text-align: left;
-  font-family: Inter, 'Arial', sans-serif;
+  font-family: RobotoSlab, 'Arial', sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 26px;
@@ -19,7 +19,7 @@
 .card__data{
   margin: 20px 0 0 24px;
   text-align: left;
-  font-family: Inter, 'Arial', sans-serif;
+  font-family: Source, 'Arial', sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
@@ -30,7 +30,7 @@
 .card__source{
   margin: 0 0 0 24px;
   text-align: left;
-  font-family: Inter, 'Arial', sans-serif;
+  font-family: RobotoSlab, 'Arial', sans-serif;
   font-style: normal;
   font-weight: bold;
   font-size: 18px;
@@ -41,7 +41,7 @@
 .card__text{
   margin: 16px 0 0 24px;
   text-align: left;
-  font-family: Inter, 'Arial', sans-serif;
+  font-family: Roboto, 'Arial', sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
@@ -96,7 +96,8 @@
     right: 16px;
   }
   .card__title{
-    margin: 16px 0 0 24px;
+    width: 192px;
+    margin: 12px 0 0 16px;
     font-size: 22px;
     line-height: 24px;
   }
@@ -107,16 +108,19 @@
     height: 270px;
   }
   .card__source{
+    margin: 0 0 0 16px;
     font-size: 16px;
     line-height: 20px;
   }
   .card__data{
+    width: 128px;
     margin: 12px 0 0 16px;
     font-size: 18px;
     line-height: 24px;
   }
   .card__text{
-    margin: 10px 0 0 24px;
+    margin: 10px 0 0 16px;
+    width: 192px;
     height: 88px;
     font-size: 16px;
     line-height: 22px;
