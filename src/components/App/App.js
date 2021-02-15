@@ -32,9 +32,11 @@ function App() {
     closeAllPopups();
   }
   function openRegisterPopup() {
+    closeAllPopups();
     setRegisterPopupOpen(true);
   }
   function openLoginPopup() {
+    closeAllPopups();
     setLoginPopupOpen(true);
   }
   function openMenuPopup() {
@@ -61,64 +63,6 @@ function App() {
                   buttonText={'Авторизоваться'}/>
        <Footer/>
      </Route>
-    <Route path={'/sign-up'}>
-      <>
-        <Main link={'/sign-in'}
-              menuClick={openMenuPopup}
-              secondlink={''}
-              secondText={''}
-              text={''}
-              buttonText={'Авторизоваться'}
-              />
-        <SearchResults/>
-        <About/>
-        <Footer/>
-        <MenuPopup onSubmit={handleMenuClose}
-                   onClose={closeAllPopups}
-                   isOpen={isMenuPopupOpen}
-                   onSecondClick={openRegisterPopup}
-                   link={'/sign-in'}
-                   secondlink={''}
-                   secondText={''}
-                   text={'Главная'}
-                   buttonText={'Авторизоваться'}/>
-        <Register onSubmit={handleRegisterClose}
-                  link={'/sign-in'}
-                  linkText={'Войти'}
-                  onClose={closeAllPopups}
-                  isOpen={isRegisterPopupOpen}/>
-        </>
-    </Route>
-
-  <Route path={'/sign-in'}>
-    <>
-      <Main link={'/sign-up'}
-            text={'Регистрация'}
-            secondlink={''}
-            secondText={''}
-            buttonText={'Авторизоваться'}
-            onClick={openRegisterPopup}
-            menuClick={openMenuPopup}
-            />
-      <SearchResults/>
-      <About/>
-      <Footer/>
-      <MenuPopup onSubmit={handleMenuClose}
-                 onClose={closeAllPopups}
-                 isOpen={isMenuPopupOpen}
-                 onSecondClick={openRegisterPopup}
-                 link={'/sign-in'}
-                 secondlink={''}
-                 secondText={''}
-                 text={'Главная'}
-                 buttonText={'Авторизоваться'}/>
-      <Login onSubmit={handleLoginClose}
-             link={'/sign-in'}
-             linkText={'Зарегестрироваться'}
-             onClose={closeAllPopups}
-             isOpen={isLoginPopupOpen}/>
-      </>
-  </Route>
         <Route exact path={'/'}>
           <Main
             link={'/'}
@@ -135,17 +79,22 @@ function App() {
           <MenuPopup onSubmit={handleMenuClose}
                      onClose={closeAllPopups}
                      isOpen={isMenuPopupOpen}
-                     onSecondClick={openRegisterPopup}
+                     onSecondClick={openLoginPopup}
                      link={'/sign-in'}
                      secondlink={''}
                      secondText={''}
                      text={'Главная'}
                      buttonText={'Авторизоваться'}/>
           <Login onSubmit={handleLoginClose}
-                 link={'/sign-in'}
+                 link={openRegisterPopup}
                  linkText={'Зарегестрироваться'}
                  onClose={closeAllPopups}
                  isOpen={isLoginPopupOpen}/>
+          <Register onSubmit={handleRegisterClose}
+                    link={openLoginPopup}
+                    linkText={'Войти'}
+                    onClose={closeAllPopups}
+                    isOpen={isRegisterPopupOpen}/>
         </Route>
 </>
 

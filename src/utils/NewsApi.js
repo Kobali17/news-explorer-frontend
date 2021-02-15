@@ -1,15 +1,20 @@
-const NewsAPI = require('newsapi');
+const apiKey = '92c813b9c0164363b4927e0c0b3e44bf';
 
-const newsapi = new NewsAPI('92c813b9c0164363b4927e0c0b3e44bf');
-const date = new Date();
+function weekagoISO() {
+  return new Date(new Date() - 7).toISOString({ timeZone: 'UTC' });
+}
+function todayISO() {
+  return new Date().toISOString({ timeZone: 'UTC' });
+}
 
-newsapi.v2.everything({
-  q: 'bitcoin',
-  from: `${date.getFullYear}+'-'${date.getMonth}+'-'${date.getDate}-7`,
-  to: `${date.getFullYear}+'-'${date.getMonth}+'-'${date.getDate}`,
-  language: 'ru',
-  sortBy: 'relevancy',
-  pageSize: 100,
-}).then((response) => {
-  console.log(response);
-});
+export default function getNews(searchValue) {
+  return fetch(`https://newsapi.org/v2/everything/?${new URLSearchParams({
+    q: searchValue,
+    from: weekagoISO(),
+    to: todayISO(),
+    language: 'ru',
+    sortBy: 'relevancy',
+    pageSize: 100,
+    apiKey,
+  })}`);
+}
