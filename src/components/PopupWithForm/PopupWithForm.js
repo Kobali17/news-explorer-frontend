@@ -13,7 +13,7 @@ function PopupWithForm(props) {
                   method="get" noValidate>
               {props.children}
               <button type="submit" className="popup__save-button">{props.buttonText}</button>
-              <p className="popup__subtitle">или <p className="popup__link" onClick={props.link}>{props.linkText}</p>
+              <p className="popup__subtitle">или <a className="popup__link" onClick={props.link}>{props.linkText}</a>
               </p>
             </form>
           </div>

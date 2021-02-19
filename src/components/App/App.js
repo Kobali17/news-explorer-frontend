@@ -1,7 +1,9 @@
 import React from 'react';
 import {
-  Route,
+  Route, Switch, useHistory,
 } from 'react-router-dom';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
+import ProtectedRoute from '../ProtectedRoute';
 import Main from '../Main/Main';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
@@ -10,24 +12,153 @@ import Footer from '../Footer/Footer';
 import SearchResults from '../SearchResults/SearchResults';
 import About from '../About/About';
 import MenuPopup from '../MenuPopup/MenuPopup';
+import InfoTooltip from '../InfoTooltip/InfoTooltip';
+import NotFound from '../NotFound/NotFound';
+import getNews from '../../utils/NewsApi';
+import * as auth from '../../utils/auth';
+import api from '../../utils/Api';
 
 function App() {
+  const [currentUser, setUserData] = React.useState({
+    _id: '',
+    name: '',
+    email: '',
+  });
   const [isLoginPopupOpen, setLoginPopupOpen] = React.useState(false);
   const [isRegisterPopupOpen, setRegisterPopupOpen] = React.useState(false);
   const [isMenuPopupOpen, setMenuPopupOpen] = React.useState(false);
+  const [isRegisterSuccess, setRegisterSuccess] = React.useState(true);
+  const [isInfoToolOpen, setInfoToolOpen] = React.useState(false);
+  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [notFound, setNotFound] = React.useState(false);
+  const [userCards, setUserCards] = React.useState([]);
+  const [articles, setArticles] = React.useState([]);
+  const [myNews, setMyNews] = React.useState([]);
+  const history = useHistory();
 
+  function getUserData() {
+    setLoggedIn(true);
+    return Promise.all([api.getInitialArticles(), api.getUserData()]).then(([res, response]) => {
+      setUserData({ ...response });
+      setArticles(res);
+    });
+  }
+  React.useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token !== null) {
+      auth.tokenValid(token).then((res) => {
+        if (res) {
+          getUserData().catch((err) => {
+            console.log(err);
+          });
+        } else {
+          setLoggedIn(false);
+        }
+      }).catch((err) => {
+        console.log(err);
+      });
+    }
+  }, []);
   function closeAllPopups() {
     setLoginPopupOpen(false);
     setRegisterPopupOpen(false);
     setMenuPopupOpen(false);
+    setInfoToolOpen(false);
+  }
+  function handleEscClose(evt) {
+    if (evt.key === 'Escape') {
+      closeAllPopups();
+    }
+  }
+  React.useEffect(() => {
+    document.addEventListener('keydown', handleEscClose);
+    return () => {
+      document.removeEventListener('keydown', handleEscClose);
+    };
+  });
+  function handleSearchNews(keyword) {
+    setArticles([]);
+    setNotFound(false);
+    console.log('step1');
+    return getNews(keyword)
+      .then((data) => {
+        console.log('step2');
+        setArticles(data.articles);
+        setNotFound(false);
+        if (data.articles.length === 0) {
+          setNotFound(true);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log('step3');
+      });
   }
 
-  function handleLoginClose() {
-    closeAllPopups();
+  function userSaveNews() {
+    return api.getInitialArticles()
+      .then((news) => {
+        const arreyMyNews = news.filter((c) => (c.owner === currentUser.id));
+        setUserCards(arreyMyNews);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
-  function handleRegisterClose() {
-    closeAllPopups();
+  function handleSaveNews(article) {
+    return api.createArticle(article)
+      .then((res) => {
+        userSaveNews();
+        console.log(res);
+      });
   }
+  function handleDeleteNews(id) {
+    return api.removeArticle(id)
+      .then(() => {
+        const arrMyNews = myNews.filter((c) => (c._id !== id));
+        setMyNews(arrMyNews);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }
+
+  function handleRegister(registerData) {
+    auth.register(registerData).then((res) => {
+      if (res !== null) {
+        setRegisterSuccess(true);
+        closeAllPopups();
+        setInfoToolOpen(true);
+      }
+    }).catch((err) => {
+      console.log(err);
+      setRegisterSuccess(false);
+      closeAllPopups();
+      setInfoToolOpen(true);
+    });
+  }
+
+  function handleLogin(loginData) {
+    auth.logIn(loginData).then((res) => {
+      if (res !== null) {
+        getUserData().catch((err) => {
+          console.log(err);
+          closeAllPopups();
+        });
+      }
+    }).catch((err) => {
+      console.log(err);
+      setRegisterSuccess(false);
+      closeAllPopups();
+      setInfoToolOpen(true);
+    });
+  }
+  function handleLogout() {
+    localStorage.removeItem('jwt');
+    history.push('/');
+    setLoggedIn(false);
+  }
+
   function handleMenuClose() {
     closeAllPopups();
   }
@@ -43,15 +174,21 @@ function App() {
     setMenuPopupOpen(true);
   }
   return (
-
-   <>
-     <Route path={'/saved-news'}>
+    <CurrentUserContext.Provider value={currentUser}>
+   <Switch>
+     <ProtectedRoute path={'/saved-news'}>
        <SavedNews link={'/'}
+                  cards={userCards}
+                  cardsSave={handleSaveNews}
+                  cardsDel={handleDeleteNews}
                   text={'Главная'}
                   secondlink={'/saved-news'}
                   secondText={'Сохранённые статьи'}
-                  buttonText={'Луна'}
-                  menuClick={openMenuPopup}/>
+                  buttonText={currentUser.name}
+                  menuClick={openMenuPopup}
+                  logOut={handleLogout}
+                  isLoggedIn={loggedIn}
+       />
        <MenuPopup onSubmit={handleMenuClose}
                   onClose={closeAllPopups}
                   isOpen={isMenuPopupOpen}
@@ -62,7 +199,7 @@ function App() {
                   text={'Главная'}
                   buttonText={'Авторизоваться'}/>
        <Footer/>
-     </Route>
+     </ProtectedRoute>
         <Route exact path={'/'}>
           <Main
             link={'/'}
@@ -72,8 +209,11 @@ function App() {
             secondText={''}
             onClick={openLoginPopup}
             menuClick={openMenuPopup}
+            searchSubmit={handleSearchNews}
           />
-            <SearchResults/>
+            <SearchResults cards={articles} cardsSave={handleSaveNews}
+                           cardsDel={handleDeleteNews}/>
+            <NotFound isOpen={notFound}/>
             <About/>
             <Footer/>
           <MenuPopup onSubmit={handleMenuClose}
@@ -85,18 +225,21 @@ function App() {
                      secondText={''}
                      text={'Главная'}
                      buttonText={'Авторизоваться'}/>
-          <Login onSubmit={handleLoginClose}
+          <Login onSubmit={handleLogin}
                  link={openRegisterPopup}
                  linkText={'Зарегестрироваться'}
                  onClose={closeAllPopups}
                  isOpen={isLoginPopupOpen}/>
-          <Register onSubmit={handleRegisterClose}
+          <Register onSubmit={handleRegister}
                     link={openLoginPopup}
                     linkText={'Войти'}
                     onClose={closeAllPopups}
-                    isOpen={isRegisterPopupOpen}/>
+                    isOpen={isRegisterPopupOpen}
+          />
         </Route>
-</>
+</Switch>
+      <InfoTooltip isSuccess={isRegisterSuccess} isOpen={isInfoToolOpen} onClose={closeAllPopups}/>
+      </CurrentUserContext.Provider>
 
   );
 }

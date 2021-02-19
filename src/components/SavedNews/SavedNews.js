@@ -15,12 +15,13 @@ function SavedNews(props) {
                        secondText={props.secondText}
                        buttonText={props.buttonText}
                        menuClick={props.menuClick}
+                       logOut={props.logOut}
       />
       <p className="saved-news__title">Сохранённые статьи</p>
       <h1 className="saved-news__header">{'Луна'}, у вас {'6'} сохраненных статей</h1>
       <p className="saved-news__text">По ключевым словам: {'Природа'}, {'Тайга'} и {'2'}-м другим</p>
     </div>
-      <NewsCardList/>
+      <NewsCardList cardSaved={props.cardSaved}cards={props.cards}/>
     </>
   );
 }

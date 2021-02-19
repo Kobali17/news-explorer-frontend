@@ -3,18 +3,18 @@ import './NewsCardList.css';
 import NewsCard from '../NewsCard/NewsCard';
 import Preloader from '../Preloader/Preloader';
 
-function NewsCardList() {
-  // const currentUser = React.useContext(CurrentUserContext);
-
+function NewsCardList(props) {
   return (
     <div className="news-card__background">
     <div className="news-card-list">
       <Suspense fallback={<Preloader/>}>
-      <NewsCard/>
-      <NewsCard/>
-      <NewsCard/>
-      <NewsCard/>
-      <NewsCard/>
+        {props.cards.map((card, key) => (
+          <NewsCard key={key}
+                card={card}
+                    cardsSave={props.cardsSave}
+                    cardsDel={props.cardsDel}
+                />
+        ))}
       </Suspense>
     </div>
     </div>

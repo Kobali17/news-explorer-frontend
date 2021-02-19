@@ -1,20 +1,22 @@
 const apiKey = '92c813b9c0164363b4927e0c0b3e44bf';
+const newsUrl = 'https://nomoreparties.co/news/v2/everything?';
+const now = new Date();
+const startDate = now.toISOString().slice(0, 10);
+now.setDate(now.getDate() - 7);
+const finishDate = now.toISOString().slice(0, 10);
 
-function weekagoISO() {
-  return new Date(new Date() - 7).toISOString({ timeZone: 'UTC' });
-}
-function todayISO() {
-  return new Date().toISOString({ timeZone: 'UTC' });
-}
-
-export default function getNews(searchValue) {
-  return fetch(`https://newsapi.org/v2/everything/?${new URLSearchParams({
-    q: searchValue,
-    from: weekagoISO(),
-    to: todayISO(),
-    language: 'ru',
-    sortBy: 'relevancy',
-    pageSize: 100,
-    apiKey,
-  })}`);
+export default function getNews(keyword) {
+  return fetch(`${newsUrl}q=${keyword}&language=ru&from=${finishDate}&to=${startDate}&sortBy=relevancy&pageSize=100&apiKey=${apiKey}`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((res) => {
+      if (res.status === 200) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
 }

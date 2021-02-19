@@ -1,10 +1,14 @@
 import React from 'react';
 import './SearchForm.css';
 
-function SearchForm() {
+function SearchForm(props) {
+  function handleSubmit(e) {
+    e.preventDefault();
+    props.onSubmit();
+  }
   return (
     <div className="search">
-    <form className="search__form" method="get" noValidate>
+    <form className="search__form" method="get" onSubmit={handleSubmit} noValidate>
       <input id="search" required placeholder="Введите тему новости" type="text" name="name"
              className="search__input"
              minLength="2" maxLength="40" />
