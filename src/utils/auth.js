@@ -1,13 +1,13 @@
 export const BASE_URL = '/api';
 
-export function register({ email, password }) {
+export function register({ email, password, name }) {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ email, password, name }),
   })
     .then((res) => {
       if (res.ok) {

@@ -4,16 +4,24 @@ class Api {
     this._baseUrl = options.baseUrl;
   }
 
-  getInitialCards() {
-    return this._fetch('/cards', 'GET');
+  getInitialArticles() {
+    return this._fetch('/articles', 'GET');
   }
 
-  takeCardLike(cardId) {
-    return this._fetch(`/cards/${cardId}/likes`, 'PUT');
+  removeArticle(articleId) {
+    return this._fetch(`/articles/${articleId}`, 'DELETE');
   }
 
-  removeCardLke(cardId) {
-    return this._fetch(`/cards/${cardId}/likes`, 'DELETE');
+  createArticle(values) {
+    return this._fetch('/articles', 'POST', JSON.stringify({
+      keyword: values.keyword,
+      title: values.title,
+      description: values.description,
+      source: values.source,
+      url: values.url,
+      urlToImage: values.urlToImage,
+      publishedAt: values.publishedAt,
+    }));
   }
 
   getUserData() {

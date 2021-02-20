@@ -30,15 +30,15 @@ function Login(props) {
                          link={props.link}
                          linkText={props.linkText}>
             <p className="popup__input-text">Email</p>
-              <input id="email" required placeholder="Введите почту" type="text" name="email" onChange={handelSetEmail}
+              <input id="login-email" required placeholder="Введите почту" type="text" name="email" onChange={handelSetEmail}
                      className="popup__input"
                      minLength="2" maxLength="40" value={email}/>
-              <span id="email-error" className="popup__input_error"/>
+              <span id="login-email-error" className="popup__input_error"/>
             <p className="popup__input-text">Пароль</p>
-              <input value={password} id="password" required placeholder="Введите пароль" type="password" name="password"
+              <input value={password} id="login-password" required placeholder="Введите пароль" type="password" name="password"
                      className="popup__input" onChange={handelSetPassword}
                      minLength="2" maxLength="200"/>
-              <span id="password-error" className="popup__input_error"/>
+              <span id="login-password-error" className="popup__input_error"/>
           </PopupWithForm>
   );
 }
