@@ -3,6 +3,9 @@
   flex-direction: column;
   align-items: center;
 }
+.preloader-hide{
+  display: none;
+}
 .preloader__text{
   font-family: Inter, 'Arial', sans-serif;
   font-style: normal;

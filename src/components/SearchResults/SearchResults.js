@@ -3,12 +3,17 @@ import './SearchResults.css';
 import NewsCardList from '../NewsCardList/NewsCardList';
 
 function SearchResults(props) {
+  function moreCards() {
+    props.setResultCards(props.resultCards + 3);
+  }
   return (
     <div className="search-results">
       <h2 className="search-results__text">Результаты поиска</h2>
       <NewsCardList cards={props.cards} cardsSave={props.cardsSave}
-                    cardsDel={props.cardsDel}/>
-      <button className="search-results__button">Показать ещё</button>
+                    cardsDel={props.cardsDel}
+                    resultCards={props.resultCards}
+      />
+      <button className="search-results__button" onClick={moreCards} >Показать ещё</button>
     </div>
   );
 }

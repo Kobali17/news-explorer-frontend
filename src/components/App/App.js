@@ -17,6 +17,7 @@ import NotFound from '../NotFound/NotFound';
 import getNews from '../../utils/NewsApi';
 import * as auth from '../../utils/auth';
 import api from '../../utils/Api';
+import Preloader from '../Preloader/Preloader';
 
 function App() {
   const [currentUser, setUserData] = React.useState({
@@ -29,6 +30,8 @@ function App() {
   const [isMenuPopupOpen, setMenuPopupOpen] = React.useState(false);
   const [isRegisterSuccess, setRegisterSuccess] = React.useState(true);
   const [isInfoToolOpen, setInfoToolOpen] = React.useState(false);
+  const [loaderVisibility, setLoaderVisibility] = React.useState(false);
+  const [resultCards, setResultCards] = React.useState(3);
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [notFound, setNotFound] = React.useState(false);
   const [userCards, setUserCards] = React.useState([]);
@@ -65,6 +68,12 @@ function App() {
     setMenuPopupOpen(false);
     setInfoToolOpen(false);
   }
+  function showLoader() {
+    setLoaderVisibility(true);
+  }
+  function hideLoader() {
+    setLoaderVisibility(false);
+  }
   function handleEscClose(evt) {
     if (evt.key === 'Escape') {
       closeAllPopups();
@@ -77,6 +86,7 @@ function App() {
     };
   });
   function handleSearchNews(keyword) {
+    showLoader();
     setArticles([]);
     setNotFound(false);
     console.log('step1');
@@ -85,6 +95,7 @@ function App() {
         console.log('step2');
         setArticles(data.articles);
         setNotFound(false);
+        hideLoader();
         if (data.articles.length === 0) {
           setNotFound(true);
         }
@@ -98,8 +109,8 @@ function App() {
   function userSaveNews() {
     return api.getInitialArticles()
       .then((news) => {
-        const arreyMyNews = news.filter((c) => (c.owner === currentUser.id));
-        setUserCards(arreyMyNews);
+        const arrMyNews = news.filter((c) => (c.owner === currentUser.id));
+        setUserCards(arrMyNews);
       })
       .catch((err) => {
         console.log(err);
@@ -211,8 +222,12 @@ function App() {
             menuClick={openMenuPopup}
             searchSubmit={handleSearchNews}
           />
+          <Preloader isLoaderVisability={loaderVisibility}/>
             <SearchResults cards={articles} cardsSave={handleSaveNews}
-                           cardsDel={handleDeleteNews}/>
+                           cardsDel={handleDeleteNews}
+                           resultCards={resultCards}
+                           setResultCards={setResultCards}
+            />
             <NotFound isOpen={notFound}/>
             <About/>
             <Footer/>
