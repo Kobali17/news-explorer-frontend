@@ -1,4 +1,4 @@
-export const BASE_URL = '/api';
+export const BASE_URL = 'api.lunara-news.students.nomoredomains.icu';
 
 export function register({ email, password, name }) {
   return fetch(`${BASE_URL}/signup`, {
