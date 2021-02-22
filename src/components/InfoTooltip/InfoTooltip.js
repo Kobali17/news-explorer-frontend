@@ -7,7 +7,7 @@ function InfoTooltip(props) {
         <button id="name-close" className="popup__close-button" onClick={props.onClose}/>
         <div className="popup__window">
           <div className="popup__image-content">
-            <h2 className="popup__image-title">{props.isSuccess ? 'Вы успешно зарегистрировались!' : 'Что-то пошло не так!'
+            <h2 className="popup__image-title">{props.isSuccess ? 'Пользователь успешно зарегистрирован!' : 'Что-то пошло не так!'
               + 'Попробуйте ещё раз.'}</h2>
           </div>
         </div>
