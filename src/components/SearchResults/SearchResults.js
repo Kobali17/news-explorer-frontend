@@ -7,7 +7,7 @@ function SearchResults(props) {
     props.setResultCards(props.resultCards + 3);
   }
   return (
-    <div className="search-results">
+    <div className={props.isSearchDone ? 'search-results' : 'search-results-hide'}>
       <h2 className="search-results__text">Результаты поиска</h2>
       <NewsCardList cards={props.cards} cardsSave={props.cardsSave}
                     cardsDel={props.cardsDel}

@@ -34,7 +34,7 @@ function App() {
   const [searchDone, setSearchDone] = React.useState(false);
   const [resultCards, setResultCards] = React.useState(3);
   const [loggedIn, setLoggedIn] = React.useState(false);
-  const [notFound, setNotFound] = React.useState(false);
+  const [notFound, setNotFound] = React.useState(true);
   const [userCards, setUserCards] = React.useState([]);
   const [articles, setArticles] = React.useState([]);
   const [myNews, setMyNews] = React.useState([]);
@@ -69,12 +69,6 @@ function App() {
     setMenuPopupOpen(false);
     setInfoToolOpen(false);
   }
-  function showLoader() {
-    setLoaderVisibility(true);
-  }
-  function hideLoader() {
-    setLoaderVisibility(false);
-  }
   function handleEscClose(evt) {
     if (evt.key === 'Escape') {
       closeAllPopups();
@@ -94,12 +88,13 @@ function App() {
       .then((data) => {
         setArticles(data.articles);
         setNotFound(false);
-        setSearchDone(true);
+
         setLoaderVisibility(false);
         if (data.articles.length === 0) {
           setNotFound(true);
           setSearchDone(false);
         }
+        setSearchDone(true);
       })
       .catch((err) => {
         console.log(err);
