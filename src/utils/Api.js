@@ -46,7 +46,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: '/api',
+  baseUrl: 'http://api.lunara-news.students.nomoredomains.icu',
   headers: {
     'Content-Type': 'application/json',
   },
