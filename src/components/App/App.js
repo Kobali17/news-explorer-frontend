@@ -31,6 +31,7 @@ function App() {
   const [isRegisterSuccess, setRegisterSuccess] = React.useState(true);
   const [isInfoToolOpen, setInfoToolOpen] = React.useState(false);
   const [loaderVisibility, setLoaderVisibility] = React.useState(false);
+  const [searchDone, setSearchDone] = React.useState(false);
   const [resultCards, setResultCards] = React.useState(3);
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [notFound, setNotFound] = React.useState(false);
@@ -86,18 +87,18 @@ function App() {
     };
   });
   function handleSearchNews(keyword) {
-    showLoader();
+    setLoaderVisibility(true);
     setArticles([]);
     setNotFound(false);
-    console.log('step1');
     return getNews(keyword)
       .then((data) => {
-        console.log('step2');
         setArticles(data.articles);
         setNotFound(false);
-        hideLoader();
+        setSearchDone(true);
+        setLoaderVisibility(false);
         if (data.articles.length === 0) {
           setNotFound(true);
+          setSearchDone(false);
         }
       })
       .catch((err) => {
@@ -224,6 +225,7 @@ function App() {
           />
           <Preloader isLoaderVisability={loaderVisibility}/>
             <SearchResults cards={articles} cardsSave={handleSaveNews}
+                           isSearchDone={searchDone}
                            cardsDel={handleDeleteNews}
                            resultCards={resultCards}
                            setResultCards={setResultCards}
