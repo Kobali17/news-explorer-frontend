@@ -34,7 +34,7 @@ function App() {
   const [searchDone, setSearchDone] = React.useState(false);
   const [resultCards, setResultCards] = React.useState(3);
   const [loggedIn, setLoggedIn] = React.useState(false);
-  const [notFound, setNotFound] = React.useState(true);
+  const [notFound, setNotFound] = React.useState(false);
   const [userCards, setUserCards] = React.useState([]);
   const [articles, setArticles] = React.useState([]);
   const [myNews, setMyNews] = React.useState([]);
