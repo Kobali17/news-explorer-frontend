@@ -36,6 +36,11 @@ function NewsCard(props) {
             ? (<button className={saved && props.loggedIn ? 'card__check-button' : 'card__check-button'} onClick={handelClick} type="button" />)
             : (<button className={'card__check-button__inactive'} type="button" />)
           }
+          <div className={`card__tag${props.card.tag ? '' : 'card__tag_hidden'}`}>
+            <p className='card__tag_text'>
+              {props.card.keyword}
+            </p>
+          </div>
             <img className="card__img"
              src={props.card.urlToImage} alt={props.text}/>
             <div className="card__info">

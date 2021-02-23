@@ -6,6 +6,32 @@
   border-radius: 10px;
   height: 576px;
 }
+.card__tag {
+  position: absolute;
+  left: 24px;
+  top: 24px;
+  width: auto;
+  height: 40px;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card__tag-hidden {
+  display: none;
+}
+.card__tag_text {
+  margin: 8px 12px;
+  font-family: Roboto, 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  text-align: center;
+  color: #000000;
+}
+
 .card__title{
   margin: 12px 0 0 24px;
   text-align: left;
@@ -25,7 +51,6 @@
   font-size: 18px;
   line-height: 24px;
   color: #B6BCBF;
-
 }
 .card__source{
   margin: 0 0 0 24px;

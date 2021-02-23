@@ -37,7 +37,6 @@ function App() {
   const [notFound, setNotFound] = React.useState(false);
   const [userCards, setUserCards] = React.useState([]);
   const [articles, setArticles] = React.useState([]);
-  const [myNews, setMyNews] = React.useState([]);
   const history = useHistory();
 
   function getUserData() {
@@ -102,28 +101,30 @@ function App() {
       });
   }
 
-  function userSaveNews() {
-    return api.getInitialArticles()
-      .then((news) => {
-        const arrMyNews = news.filter((c) => (c.owner === currentUser.id));
-        setUserCards(arrMyNews);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+  // function userSaveNews() {
+  //   return api.getInitialArticles()
+  //     .then((news) => {
+  //       const arrSavedNews = news.filter((c) => (c.owner === currentUser.id));
+  //       const tags = [];
+  //       setUserCards(arrSavedNews);
+  //       userCards.map((card) => (tags.includes(card.keyword) ? '' : tags.push(card.keyword)));
+  //       // setUserCards(arrSavedNews);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }
   function handleSaveNews(article) {
     return api.createArticle(article)
       .then((res) => {
-        userSaveNews();
         console.log(res);
       });
   }
   function handleDeleteNews(id) {
     return api.removeArticle(id)
       .then(() => {
-        const arrMyNews = myNews.filter((c) => (c._id !== id));
-        setMyNews(arrMyNews);
+        const arrSavedNews = userCards.filter((c) => (c._id !== id));
+        setUserCards(arrSavedNews);
       })
       .catch((err) => {
         console.log(err.message);
