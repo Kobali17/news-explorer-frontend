@@ -12,15 +12,15 @@ class Api {
     return this._fetch(`/articles/${articleId}`, 'DELETE');
   }
 
-  createArticle(values) {
+  createArticle(values, keyword) {
     return this._fetch('/articles', 'POST', JSON.stringify({
-      keyword: values.keyword,
+      keyword,
       title: values.title,
       description: values.description,
+      publishedAt: values.publishedAt,
       source: values.source,
       url: values.url,
       urlToImage: values.urlToImage,
-      publishedAt: values.publishedAt,
     }));
   }
 
@@ -46,7 +46,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: 'https://api.lunara-news.students.nomoredomains.icu',
+  baseUrl: 'http://api.lunara-news.students.nomoredomains.icu/api',
   headers: {
     'Content-Type': 'application/json',
   },

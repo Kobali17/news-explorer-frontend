@@ -4,7 +4,6 @@ import PopupWithForm from '../PopupWithForm/PopupWithForm';
 
 function Login(props) {
   const [email, setEmail] = React.useState('');
-
   const [password, setPassword] = React.useState('');
 
   function handelSetEmail(e) {
@@ -17,6 +16,10 @@ function Login(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    props.onSubmit({
+      email,
+      password,
+    });
     props.onClose();
   };
   return (

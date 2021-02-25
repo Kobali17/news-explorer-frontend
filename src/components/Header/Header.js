@@ -7,12 +7,10 @@ function Header(props) {
   return (
         <header className="header">
           <img className="header__logo" src={logo} alt="NewsExplorer"/>
-            <Navigation link={props.link}
-                        text={props.text}
-                        secondlink={props.secondlink}
-                        secondText={props.secondText}
+            <Navigation isLoggedIn={props.isLoggedIn}
                         buttonText={props.buttonText}
-                        onClick={props.onClick}
+                        login={props.login}
+                        logOut={props.logOut}
                         menuClick={props.menuClick}
                         onSubmit={props.onSubmit}
                         onClose={props.onClose}

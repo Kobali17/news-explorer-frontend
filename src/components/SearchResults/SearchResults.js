@@ -9,7 +9,9 @@ function SearchResults(props) {
   return (
     <div className={props.isSearchDone ? 'search-results' : 'search-results-hide'}>
       <h2 className="search-results__text">Результаты поиска</h2>
-      <NewsCardList cards={props.cards} cardsSave={props.cardsSave}
+      <NewsCardList cards={props.cards}
+                    loggedIn={props.loggedIn}
+                    cardsSave={props.cardsSave}
                     cardsDel={props.cardsDel}
                     resultCards={props.resultCards}
       />

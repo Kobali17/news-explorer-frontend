@@ -18,12 +18,11 @@ import getNews from '../../utils/NewsApi';
 import * as auth from '../../utils/auth';
 import api from '../../utils/Api';
 import Preloader from '../Preloader/Preloader';
+import SearchCardsContext from '../../contexts/SearchCardsContext';
+import SavedCardsContext from '../../contexts/SavedCardsContext';
 
 function App() {
-  const [currentUser, setUserData] = React.useState({
-    _id: '',
-    name: '',
-    email: '',
+  const [userData, setUserData] = React.useState({
   });
   const [isLoginPopupOpen, setLoginPopupOpen] = React.useState(false);
   const [isRegisterPopupOpen, setRegisterPopupOpen] = React.useState(false);
@@ -35,15 +34,15 @@ function App() {
   const [resultCards, setResultCards] = React.useState(3);
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [notFound, setNotFound] = React.useState(false);
+  const [searchTag, setSearchTag] = React.useState('');
   const [userCards, setUserCards] = React.useState([]);
   const [articles, setArticles] = React.useState([]);
   const history = useHistory();
-
   function getUserData() {
     setLoggedIn(true);
     return Promise.all([api.getInitialArticles(), api.getUserData()]).then(([res, response]) => {
-      setUserData({ ...response });
-      setArticles(res);
+      setUserData(response);
+      setUserCards(res);
     });
   }
   React.useEffect(() => {
@@ -62,6 +61,7 @@ function App() {
       });
     }
   }, []);
+
   function closeAllPopups() {
     setLoginPopupOpen(false);
     setRegisterPopupOpen(false);
@@ -79,6 +79,7 @@ function App() {
       document.removeEventListener('keydown', handleEscClose);
     };
   });
+
   function handleSearchNews(keyword) {
     setLoaderVisibility(true);
     setArticles([]);
@@ -87,37 +88,41 @@ function App() {
       .then((data) => {
         setArticles(data.articles);
         setNotFound(false);
-
         setLoaderVisibility(false);
+        if (data.articles === undefined) {
+          setNotFound(true);
+        }
         if (data.articles.length === 0) {
           setNotFound(true);
           setSearchDone(false);
         }
-        setSearchDone(true);
+        if (data.articles.length !== 0) {
+          setSearchDone(true);
+          setSearchTag(keyword);
+        }
       })
       .catch((err) => {
         console.log(err);
-        console.log('step3');
       });
   }
 
-  // function userSaveNews() {
-  //   return api.getInitialArticles()
-  //     .then((news) => {
-  //       const arrSavedNews = news.filter((c) => (c.owner === currentUser.id));
-  //       const tags = [];
-  //       setUserCards(arrSavedNews);
-  //       userCards.map((card) => (tags.includes(card.keyword) ? '' : tags.push(card.keyword)));
-  //       // setUserCards(arrSavedNews);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }
-  function handleSaveNews(article) {
-    return api.createArticle(article)
+  function getUserNews() {
+    return api.getInitialArticles()
+      .then((newCard) => {
+        setUserCards([...userCards, newCard]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  function handleSaveNews(article, setSaved) {
+    return api.createArticle(article, searchTag)
       .then((res) => {
-        console.log(res);
+        setSaved(true);
+        setUserCards([...userCards, res]);
+        getUserNews().catch((err) => {
+          console.log(err);
+        });
       });
   }
   function handleDeleteNews(id) {
@@ -152,6 +157,7 @@ function App() {
         getUserData().catch((err) => {
           console.log(err);
           closeAllPopups();
+          setLoggedIn(true);
         });
       }
     }).catch((err) => {
@@ -182,21 +188,23 @@ function App() {
     setMenuPopupOpen(true);
   }
   return (
-    <CurrentUserContext.Provider value={currentUser}>
+    <CurrentUserContext.Provider value={userData}>
+      <SearchCardsContext.Provider value={articles}>
+        <SavedCardsContext.Provider value={userCards}>
    <Switch>
-     <ProtectedRoute path={'/saved-news'}>
-       <SavedNews link={'/'}
-                  cards={userCards}
-                  cardsSave={handleSaveNews}
-                  cardsDel={handleDeleteNews}
-                  text={'Главная'}
-                  secondlink={'/saved-news'}
-                  secondText={'Сохранённые статьи'}
-                  buttonText={currentUser.name}
-                  menuClick={openMenuPopup}
-                  logOut={handleLogout}
-                  isLoggedIn={loggedIn}
-       />
+     <ProtectedRoute component={SavedNews}
+                     link={'/'}
+                     cards={userCards}
+                     cardsSave={handleSaveNews}
+                     cardsDel={handleDeleteNews}
+                     text={'Главная'}
+                     secondlink={'/saved-news'}
+                     secondText={'Сохранённые статьи'}
+                     menuClick={openMenuPopup}
+                     logOut={handleLogout}
+                     handleLoginOpen={openLoginPopup}
+                     isLoggedIn={loggedIn}
+                     path={'/saved-news'}>
        <MenuPopup onSubmit={handleMenuClose}
                   onClose={closeAllPopups}
                   isOpen={isMenuPopupOpen}
@@ -210,17 +218,15 @@ function App() {
      </ProtectedRoute>
         <Route exact path={'/'}>
           <Main
-            link={'/'}
-            text={'Главная'}
-            buttonText={'Авторизоваться'}
-            secondlink={''}
-            secondText={''}
-            onClick={openLoginPopup}
+            isLoggedIn={loggedIn}
+            login={openLoginPopup}
+            logOut={handleLogout}
             menuClick={openMenuPopup}
-            searchSubmit={handleSearchNews}
-          />
+            searchSubmit={handleSearchNews}/>
           <Preloader isLoaderVisability={loaderVisibility}/>
-            <SearchResults cards={articles} cardsSave={handleSaveNews}
+            <SearchResults cards={articles}
+                           loggedIn={loggedIn}
+                           cardsSave={handleSaveNews}
                            isSearchDone={searchDone}
                            cardsDel={handleDeleteNews}
                            resultCards={resultCards}
@@ -252,6 +258,9 @@ function App() {
         </Route>
 </Switch>
       <InfoTooltip isSuccess={isRegisterSuccess} isOpen={isInfoToolOpen} onClose={closeAllPopups}/>
+
+      </SavedCardsContext.Provider>
+      </SearchCardsContext.Provider>
       </CurrentUserContext.Provider>
 
   );

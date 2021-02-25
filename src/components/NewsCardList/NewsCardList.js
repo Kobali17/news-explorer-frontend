@@ -6,13 +6,14 @@ function NewsCardList(props) {
   return (
     <div className="news-card__background">
     <div className="news-card-list">
-        {props.cards.slice(0, props.resultCards).map((card, key) => (
+        {props.cards ? props.cards.slice(0, props.resultCards).map((card, key) => (
           <NewsCard key={key}
-                card={card}
+                    card={card}
                     cardsSave={props.cardsSave}
                     cardsDel={props.cardsDel}
+                    loggedIn={props.loggedIn}
                 />
-        ))}
+        )) : ''}
     </div>
     </div>
   );
