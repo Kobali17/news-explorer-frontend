@@ -86,6 +86,10 @@ function App() {
     setNotFound(false);
     return getNews(keyword)
       .then((data) => {
+        data.articles = data.articles.map((cardData) => {
+          cardData.source.id = 'bla!';
+          return cardData;
+        });
         setArticles(data.articles);
         setNotFound(false);
         setLoaderVisibility(false);
@@ -117,6 +121,17 @@ function App() {
   }
   function handleSaveNews(article, setSaved) {
     return api.createArticle(article, searchTag)
+      .then((res) => {
+        setSaved(true);
+        setUserCards([...userCards, res]);
+        getUserNews().catch((err) => {
+          console.log(err);
+        });
+      });
+  }
+
+  function handleBookmarkClick(card, setSaved) {
+    return api.createArticle(card, searchTag)
       .then((res) => {
         setSaved(true);
         setUserCards([...userCards, res]);
@@ -195,6 +210,7 @@ function App() {
      <ProtectedRoute component={SavedNews}
                      link={'/'}
                      cards={userCards}
+                     onClick={handleBookmarkClick}
                      cardsSave={handleSaveNews}
                      cardsDel={handleDeleteNews}
                      text={'Главная'}
@@ -227,6 +243,7 @@ function App() {
             <SearchResults cards={articles}
                            loggedIn={loggedIn}
                            cardsSave={handleSaveNews}
+                           onClick={handleBookmarkClick}
                            isSearchDone={searchDone}
                            cardsDel={handleDeleteNews}
                            resultCards={resultCards}

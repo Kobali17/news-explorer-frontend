@@ -18,6 +18,7 @@ function SavedNews(props) {
             <div className="saved-news">
               <SavedNewsHeader link={props.link}
                                text={props.text}
+
                                secondlink={props.secondlink}
                                secondText={props.secondText}
                                buttonText={props.buttonText}
@@ -32,6 +33,7 @@ function SavedNews(props) {
             <NewsCardList isSaved={props.isSaved}
                           cardsDel={props.cardsDel}
                           loggedIn={props.isLoggedIn}
+                          onClick={props.onClick}
                           cards={props.cards}
             />
             </>

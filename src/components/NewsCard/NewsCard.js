@@ -1,14 +1,10 @@
 import React from 'react';
 import './NewsCard.css';
+import { useLocation } from 'react-router-dom';
 
 function NewsCard(props) {
   const [saved, setSaved] = React.useState(false);
-  function handleSave() {
-    props.cardsSave(props.card, setSaved);
-  }
-  function handelDel() {
-    props.cardsDel(props.card._id);
-  }
+  const location = useLocation();
   function handleDate(date) {
     const month = [
       'января',
@@ -30,10 +26,14 @@ function NewsCard(props) {
   }
   return (
         <div className="card" key={props.card._id}>
-          { props.loggedIn
+          { location.pathname !== '/saved-news' && props.loggedIn
             ? (<button className={saved && props.loggedIn ? 'card__check-button-saved' : 'card__check-button'}
-                       onClick={handelClick} type="button" />)
+                       onClick={props.onClick(props.card, setSaved)} type="button" />)
             : (<button className={'card__check-button__inactive'} type="button" />)
+          }
+          {
+            location.pathname === '/saved-news' ? (<button className= 'card__del-button'
+                                                           onClick={props.onClick(props.card, setSaved)} type="button" />) : ''
           }
           <div className={`card__tag${props.card.keyword ? '' : 'card__tag_hidden'}`}>
             <p className='card__tag_text'>
