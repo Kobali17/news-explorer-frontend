@@ -5,6 +5,12 @@ import { useLocation } from 'react-router-dom';
 function NewsCard(props) {
   const [saved, setSaved] = React.useState(false);
   const location = useLocation();
+  function handleSave() {
+    props.cardsSave(props.card, setSaved)
+  }
+  function handleDel() {
+   props.cardsDel(props.card._id, setSaved)
+  }
   function handleDate(date) {
     const month = [
       'января',
@@ -28,12 +34,12 @@ function NewsCard(props) {
         <div className="card" key={props.card._id}>
           { location.pathname !== '/saved-news' && props.loggedIn
             ? (<button className={saved && props.loggedIn ? 'card__check-button-saved' : 'card__check-button'}
-                       onClick={props.onClick(props.card, setSaved)} type="button" />)
+                       onClick={handleSave} type="button" />)
             : (<button className={'card__check-button__inactive'} type="button" />)
           }
           {
             location.pathname === '/saved-news' ? (<button className= 'card__del-button'
-                                                           onClick={props.onClick(props.card, setSaved)} type="button" />) : ''
+                                                           onClick={handleDel} type="button" />) : ''
           }
           <div className={`card__tag${props.card.keyword ? '' : 'card__tag_hidden'}`}>
             <p className='card__tag_text'>
@@ -46,7 +52,7 @@ function NewsCard(props) {
               <p className="card__data">{handleDate(props.card.publishedAt)}</p>
                 <h3 className="card__title">{props.card.title}</h3>
               <p className="card__text">{props.card.description}</p>
-              <p className="card__source">{props.card.source.name}</p>
+              <p className="card__source">{props.card.source}</p>
             </div>
         </div>
   );

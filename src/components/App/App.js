@@ -87,7 +87,7 @@ function App() {
     return getNews(keyword)
       .then((data) => {
         data.articles = data.articles.map((cardData) => {
-          cardData.source.id = 'bla!';
+          cardData.source = cardData.source.name;
           return cardData;
         });
         setArticles(data.articles);
@@ -129,22 +129,12 @@ function App() {
         });
       });
   }
-
-  function handleBookmarkClick(card, setSaved) {
-    return api.createArticle(card, searchTag)
-      .then((res) => {
-        setSaved(true);
-        setUserCards([...userCards, res]);
-        getUserNews().catch((err) => {
-          console.log(err);
-        });
-      });
-  }
-  function handleDeleteNews(id) {
+  function handleDeleteNews(id, setSaved) {
     return api.removeArticle(id)
       .then(() => {
         const arrSavedNews = userCards.filter((c) => (c._id !== id));
         setUserCards(arrSavedNews);
+        setSaved(false);
       })
       .catch((err) => {
         console.log(err.message);
@@ -210,7 +200,6 @@ function App() {
      <ProtectedRoute component={SavedNews}
                      link={'/'}
                      cards={userCards}
-                     onClick={handleBookmarkClick}
                      cardsSave={handleSaveNews}
                      cardsDel={handleDeleteNews}
                      text={'Главная'}
@@ -243,7 +232,6 @@ function App() {
             <SearchResults cards={articles}
                            loggedIn={loggedIn}
                            cardsSave={handleSaveNews}
-                           onClick={handleBookmarkClick}
                            isSearchDone={searchDone}
                            cardsDel={handleDeleteNews}
                            resultCards={resultCards}
