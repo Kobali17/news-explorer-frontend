@@ -6,7 +6,7 @@ function NewsCardList(props) {
   return (
     <div className="news-card__background">
     <div className="news-card-list">
-        {props.cards ? props.cards.slice(0, props.resultCards).map((card, key) => (
+        {props.cards !== undefined ? props.cards.slice(0, props.resultCards).map((card, key) => (
           <NewsCard key={key}
                     card={card}
                     cardsSave={props.cardsSave}

@@ -12,6 +12,6 @@ const getNews = (keyword) => fetch(`https://nomoreparties.co/news/v2/everything?
       const err = 'Ошибка доставки';
       return err;
     }
-    return res.json()
+    return res.json();
   });
 export default getNews;

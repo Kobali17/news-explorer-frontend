@@ -6,10 +6,10 @@ function NewsCard(props) {
   const [saved, setSaved] = React.useState(false);
   const location = useLocation();
   function handleSave() {
-    props.cardsSave(props.card, setSaved)
+    props.cardsSave(props.card, setSaved);
   }
   function handleDel() {
-   props.cardsDel(props.card._id, setSaved)
+    props.cardsDel(props.card._id, setSaved);
   }
   function handleDate(date) {
     const month = [

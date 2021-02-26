@@ -43,6 +43,10 @@ function App() {
     return Promise.all([api.getInitialArticles(), api.getUserData()]).then(([res, response]) => {
       setUserData(response);
       setUserCards(res);
+      if (JSON.parse(localStorage.getItem('lastCards'))) {
+        setSearchDone(true);
+        setArticles(JSON.parse(localStorage.getItem('lastCards')));
+      }
     });
   }
   React.useEffect(() => {
@@ -86,7 +90,9 @@ function App() {
     setNotFound(false);
     return getNews(keyword)
       .then((data) => {
+        // eslint-disable-next-line no-param-reassign
         data.articles = data.articles.map((cardData) => {
+          // eslint-disable-next-line no-param-reassign
           cardData.source = cardData.source.name;
           return cardData;
         });
@@ -103,13 +109,13 @@ function App() {
         if (data.articles.length !== 0) {
           setSearchDone(true);
           setSearchTag(keyword);
+          localStorage.setItem('lastCards', JSON.stringify(data.articles));
         }
       })
       .catch((err) => {
         console.log(err);
       });
   }
-
   function getUserNews() {
     return api.getInitialArticles()
       .then((newCard) => {
